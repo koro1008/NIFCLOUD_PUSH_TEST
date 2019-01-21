@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "786302876536",
+    "firebase_url": "https://pushtestsaka.firebaseio.com",
+    "project_id": "pushtestsaka",
+    "storage_bucket": "pushtestsaka.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:786302876536:android:5682329fd674dffa",
+        "android_client_info": {
+          "package_name": "com.example.sakakoro.pushtestsaka"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "786302876536-6bcogq9sqek283og1kvddhvmulq1u4dr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCSficRKNb05Hed3dtplerEcqZDDQukBXI"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
