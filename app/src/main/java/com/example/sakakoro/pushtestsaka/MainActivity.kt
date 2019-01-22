@@ -2,12 +2,7 @@ package com.example.sakakoro.pushtestsaka
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import com.nifcloud.mbaas.core.NCMB
-import com.nifcloud.mbaas.core.NCMBInstallation
-import com.nifcloud.mbaas.core.NCMBException;
-import com.nifcloud.mbaas.core.NCMBObject;
-import com.nifcloud.mbaas.core.DoneCallback;
-
+import com.nifcloud.mbaas.core.*
 
 
 //********** APIキーの設定 **********
@@ -23,7 +18,9 @@ class MainActivity : AppCompatActivity() {
 
         //********** SDKの初期化 **********
 //        NCMB.initialize(applicationContext, applicationKey, clientKey)
-        NCMB.initialize(applicationContext, applicationKey, clientKey)
+
+        // TODO これだけで配信端末情報を登録できるらしい??fcmに？う〜ん
+        NCMB.initialize(this.getApplicationContext(), applicationKey, clientKey)
 
         //▼▼▼起動時に処理される▼▼▼
 
@@ -31,18 +28,27 @@ class MainActivity : AppCompatActivity() {
 
         val installation = NCMBInstallation.getCurrentInstallation()
 
-//FCMからRegistrationIdを取得
-//        installation.getRegistrationIdInBackground("786302876536") { e ->
-//            if (e == null) {
-//                //端末情報をデータストアに登録
-//                installation.saveInBackground { saveErr ->
-//                    if (saveErr != null) {
-//                        //端末情報登録時のエラー処理
-//                    }
-//                }
-//            } else {
-//                //RegistrationId取得時のエラー処理
-//            }
-//        }
+        // TODO getRegistrationIdInBackground処理は不要らしい
+
+        // Fcmに端末情報登録
+        installation.saveInBackground { e ->
+            if (e == null) {
+                //保存成功
+//                registerSuccess()
+            } else if (NCMBException.DATA_NOT_FOUND == e.code) {
+                //保存失敗 : 端末情報の該当データがない
+//                reRegistInstallation(installation)
+            } else if (NCMBException.DUPLICATE_VALUE == e.code) {
+                //保存失敗 : registrationID重複
+//                updateInstallation(installation)
+            } else {
+                //保存失敗 : その他
+//                registerError()
+            }
+        }
+
+
+
+
     }
 }
