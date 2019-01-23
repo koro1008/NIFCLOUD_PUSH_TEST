@@ -2,6 +2,7 @@ package com.example.sakakoro.pushtestsaka
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.webkit.WebView
 import com.nifcloud.mbaas.core.*
 
 
@@ -15,36 +16,23 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-
-        //********** SDKの初期化 **********
-//        NCMB.initialize(applicationContext, applicationKey, clientKey)
-
-        // TODO これだけで配信端末情報を登録できるらしい??fcmに？う〜ん
+        // TODO これだけで配信端末情報を登録できるらしい?
         NCMB.initialize(this.getApplicationContext(), applicationKey, clientKey)
 
-        //▼▼▼起動時に処理される▼▼▼
-
-        //▲▲▲起動時に処理される▲▲▲
 
         val installation = NCMBInstallation.getCurrentInstallation()
 
-        // TODO getRegistrationIdInBackground処理は不要らしい
+        // TODO installation.getRegistrationIdInBackground処理は不要らしい
+        // TODO installation.saveInBackgroundも不要らしい
+        // TODO つまり、initializeのみでFcmからトークン取得+ニフクラに登録できる
 
-        // Fcmに端末情報登録
-        installation.saveInBackground { e ->
-            if (e == null) {
-                //保存成功
-//                registerSuccess()
-            } else if (NCMBException.DATA_NOT_FOUND == e.code) {
-                //保存失敗 : 端末情報の該当データがない
-//                reRegistInstallation(installation)
-            } else if (NCMBException.DUPLICATE_VALUE == e.code) {
-                //保存失敗 : registrationID重複
-//                updateInstallation(installation)
-            } else {
-                //保存失敗 : その他
-//                registerError()
-            }
+
+        if(!(CustomFirebaseMessagingService.richURL == null)){
+
+            val pushWebView = findViewById<WebView>(R.id.push_webview)
+            pushWebView.loadUrl(CustomFirebaseMessagingService.richURL)
+
+            CustomFirebaseMessagingService.richURL = null
         }
 
 

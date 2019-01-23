@@ -1,23 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          xmlns:tools="http://schemas.android.com/tools" package="com.example.sakakoro.pushtestsaka">
+          xmlns:tools="http://schemas.android.com/tools"
+          package="com.example.sakakoro.pushtestsaka">
 
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
-    <uses-permission android:name="android.permission.WAKE_LOCK" />
-    <uses-permission android:name="android.permission.VIBRATE" />
-    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
-    <permission android:name="com.example.sakakoro.pushtestsaka.permission.C2D_MESSAGE" android:protectionLevel="signature" />
-    <uses-permission android:name="com.example.sakakoro.pushtestsaka.permission.C2D_MESSAGE" />
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.GET_ACCOUNTS"/>
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
+    <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE"/>
+
+    <permission
+            android:name="com.example.sakakoro.pushtestsaka.permission.C2D_MESSAGE"
+            android:protectionLevel="signature"/>
+
+    <uses-permission android:name="com.example.sakakoro.pushtestsaka.permission.C2D_MESSAGE"/>
+
     <application
+            android:name="com.nifcloud.mbaas.core.NCMBApplicationController"
             android:allowBackup="true"
             android:icon="@mipmap/ic_launcher"
             android:label="@string/app_name"
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme"
-            android:name="com.nifcloud.mbaas.core.NCMBApplicationController" tools:ignore="GoogleAppIndexingWarning">
+            tools:ignore="GoogleAppIndexingWarning">
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -26,12 +33,10 @@
             </intent-filter>
         </activity>
 
-
-
         <!-- Push Notification -->
 
         <service
-                android:name="CustomFirebaseMessagingService"
+                android:name=".CustomFirebaseMessagingService"
                 android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT"/>
@@ -39,20 +44,32 @@
         </service>
 
         <!-- プッシュ通知タップ時に起動するActivityの設定 -->
-        <meta-data android:name="openPushStartActivity" android:value=".MainActivity"/>
+        <meta-data
+                android:name="openPushStartActivity"
+                android:value=".MainActivity"/>
 
         <!-- 通知エリアに表示されるアイコンの設定 -->
-        <meta-data android:name="smallIcon" android:resource="@drawable/icon"/>
+        <meta-data
+                android:name="smallIcon"
+                android:resource="@drawable/icon"/>
 
         <!-- 通知エリアに表示されるアイコンカラーの設定 -->
-        <meta-data android:name="smallIconColor" android:value="#111111"/>
+        <meta-data
+                android:name="smallIconColor"
+                android:value="#111111"/>
 
         <!-- 通知エリアにプッシュ通知を複数表示する設定　0:最新のみ表示 , 1:複数表示 -->
-        <meta-data android:name="notificationOverlap" android:value="0"/>
+        <meta-data
+                android:name="notificationOverlap"
+                android:value="0"/>
 
         <!-- カスタムダイアログプッシュを利用する場合のみ背景画像の設定 -->
-        <meta-data android:name="dialogPushBackgroundImage" android:resource="@drawable/icon"/>
-    </application>
+        <meta-data
+                android:name="dialogPushBackgroundImage"
+                android:resource="@drawable/icon"/>
 
+        <activity android:name=".WebViewActivity">
+        </activity>
+    </application>
 
 </manifest>
