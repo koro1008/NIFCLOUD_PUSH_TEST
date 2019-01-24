@@ -18,6 +18,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+
         // TODO これだけで配信端末情報を登録できるらしい?
         NCMB.initialize(this.getApplicationContext(), applicationKey, clientKey)
 
@@ -42,9 +43,9 @@ class MainActivity : AppCompatActivity() {
         NotificationReceiver.richPushForMain
             .asObservable()
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({ url -> url?.let {
+            .subscribe({ richPushForMain -> richPushForMain?.let {
                 // rich push によるURLを表示
-                intent.putExtra(CustomFirebaseMessagingService.RICH_PUSH_URL_KEY_TO_DIALOG, url)
+                intent.putExtra(CustomFirebaseMessagingService.RICH_PUSH_URL_KEY_TO_DIALOG, it)
                 NCMBPush.richPushHandler(this, intent)
             } })
     }

@@ -22,6 +22,7 @@ class NotificationReceiver:BroadcastReceiver() {
 
     override fun onReceive(context: Context?, intent: Intent?) {
 
+
         // NCMB初期化
         NCMB.initialize(context,applicationKey,clientKey)
         // 開封
@@ -56,8 +57,8 @@ class NotificationReceiver:BroadcastReceiver() {
                 if (StringUtils.isEmpty(url)) return
 
                 when (current) {
-                    "view.activity.MainActivity" -> richPushForMain.value = url
-                    "view.activity.WebView_1Activity" -> richPushForWeb1.value = url
+                    "MainActivity" -> richPushForMain.value = url
+                    "WebView_1Activity" -> richPushForWeb1.value = url
                 }
             }
         }
