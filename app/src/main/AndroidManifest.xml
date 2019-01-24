@@ -6,6 +6,7 @@
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <uses-permission android:name="android.permission.GET_ACCOUNTS"/>
+    <uses-permission android:name="android.permission.REORDER_TASKS"/>
     <uses-permission android:name="android.permission.WAKE_LOCK"/>
     <uses-permission android:name="android.permission.VIBRATE"/>
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE"/>
@@ -39,9 +40,17 @@
                 android:name=".CustomFirebaseMessagingService"
                 android:exported="false">
             <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
                 <action android:name="com.google.firebase.MESSAGING_EVENT"/>
             </intent-filter>
         </service>
+        <receiver
+                android:name=".NotificationReceiver">
+            <intent-filter>
+                <action android:name="tap"/>
+            </intent-filter>
+
+        </receiver>
 
         <!-- プッシュ通知タップ時に起動するActivityの設定 -->
         <meta-data
@@ -68,7 +77,7 @@
                 android:name="dialogPushBackgroundImage"
                 android:resource="@drawable/icon"/>
 
-        <activity android:name=".WebViewActivity">
+        <activity android:name=".WebView_1Activity">
         </activity>
     </application>
 
