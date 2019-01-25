@@ -36,10 +36,10 @@ class CustomFirebaseMessagingService : NCMBFirebaseMessagingService() {
         val notificationBuilder = notificationSettings(remoteMessage)
 
 
-//        val bigtextStyle = NotificationCompat.BigTextStyle(notificationBuilder)
-//        remoteMessage.data.get(TITLE_KEY)?.let { bigtextStyle.setBigContentTitle(it) }
-//        remoteMessage.data.get(MESSAGE_KEY)?.let { bigtextStyle.bigText(it) }
-//
+        val bigtextStyle = NotificationCompat.BigTextStyle(notificationBuilder)
+        remoteMessage.data.get(TITLE_KEY)?.let { bigtextStyle.setBigContentTitle(it) }
+        remoteMessage.data.get(MESSAGE_KEY)?.let { bigtextStyle.bigText(it) }
+
         var appInfo: ApplicationInfo? = null
         try {
             appInfo = packageManager.getApplicationInfo(packageName, PackageManager.GET_META_DATA)
@@ -57,10 +57,9 @@ class CustomFirebaseMessagingService : NCMBFirebaseMessagingService() {
             val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 //            notificationManager.notify(notificationId, bigtextStyle.build())
 
-            notificationManager.notify(notificationId,notificationBuilder.build())
+            notificationManager.notify(notificationId,bigtextStyle.build())
         }
 
-//        super.onMessageReceived(remoteMessage)
     }
 
 
@@ -85,7 +84,6 @@ class CustomFirebaseMessagingService : NCMBFirebaseMessagingService() {
             .setDefaults(Notification.DEFAULT_ALL)
             .setOnlyAlertOnce(true)
             .setAutoCancel(true)
-            .addAction(R.drawable.icon,"ここ押すとブロードキャストする？",pendingIntent)
             .setContentIntent(pendingIntent)
             .setContentTitle(pushTitle)
             .setContentText(pushBody)
